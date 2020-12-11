@@ -3,15 +3,14 @@ import createOrder from "../../utils/createOrder";
 
 const initialState = [];
 
-const addOrder = (state, { orderId, orderItems }) => {
-  const order = createOrder(orderId, orderItems);
-  return [...state, order];
+const setOrders = (state, { orders }) => {
+  return orders;
 };
 
 const ordersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_ORDER:
-      return addOrder(state, action);
+    case actionTypes.SET_ORDERS:
+      return setOrders(state, action);
     default:
       return state;
   }

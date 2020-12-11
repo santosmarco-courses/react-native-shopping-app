@@ -61,7 +61,7 @@ const CartScreen = ({ navigation }) => {
 
   const addOrderHandler = async () => {
     const orderId = await nanoid();
-    dispatch(ordersActions.addOrder(orderId, cart));
+    dispatch(ordersActions.addOrder(cart));
     showMessage({
       message: "Order placed!",
       description: `Your order has been placed successfully.\nThank you!`,

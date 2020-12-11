@@ -1,12 +1,18 @@
-import React, { useEffect, useCallback } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { StyleSheet, ActivityIndicator, View, FlatList } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { ScreenContainer, ProductCard, EditProductBtn } from "../../components";
+import {
+  ScreenContainer,
+  ProductCard,
+  EditProductBtn,
+  BodyText,
+} from "../../components";
 import { DEFAULT_SPACING } from "../../const/style";
 import { fetchProducts } from "../../store/actions/shop";
 
 const UserProducts = ({ navigation }) => {
+  const [loading, setLoading] = useState(true);
   const userProducts = useSelector((state) => state.shop.products).filter(
     (p) => p.userId === "u1"
   );
@@ -14,10 +20,20 @@ const UserProducts = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(() => {
-    dispatch(fetchProducts());
+    setLoading(true);
+    dispatch(fetchProducts()).then(() => setLoading(false));
   }, [dispatch]);
 
   useFocusEffect(loadProducts, [loadProducts]);
+
+  if (loading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator style={{ marginBottom: DEFAULT_SPACING }} />
+        <BodyText>Loading products...</BodyText>
+      </View>
+    );
+  }
 
   return (
     <ScreenContainer>
@@ -46,4 +62,10 @@ const UserProducts = ({ navigation }) => {
 
 export default UserProducts;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
