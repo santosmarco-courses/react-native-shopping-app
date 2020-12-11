@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppLoading } from "expo";
+import { useFonts } from "expo-font";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { loadCldr, GlobalizeProvider } from "react-native-globalize";
+import FlashMessage from "react-native-flash-message";
+import { Provider } from "react-redux";
+import AppNavigator from "./nav";
+import store from "./store";
 
-export default function App() {
+// Example: loading German, English, and Spanish
+loadCldr(require("react-native-globalize/locale-data/en"));
+
+const App = () => {
+  const [fontsLoaded, fontsError] = useFonts({
+    poppins: require("./assets/fonts/Poppins-Regular.ttf"),
+    "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf"),
+    roboto: require("./assets/fonts/Roboto-Regular.ttf"),
+    "roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
+    "roboto-italic": require("./assets/fonts/Roboto-Italic.ttf"),
+    "roboto-bold-italic": require("./assets/fonts/Roboto-BoldItalic.ttf"),
+  });
+
+  if (fontsError) console.error(fontsError);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GlobalizeProvider locale="en">
+      <Provider store={store}>
+        <AppNavigator />
+        <FlashMessage
+          titleStyle={styles.flashMsgTitle}
+          textStyle={styles.flashMsgText}
+        />
+      </Provider>
+    </GlobalizeProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  flashMsgText: {
+    fontFamily: "poppins-bold",
+  },
+  flashMsgText: {
+    fontFamily: "roboto",
   },
 });
+
+export default App;
