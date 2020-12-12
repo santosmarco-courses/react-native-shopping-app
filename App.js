@@ -1,6 +1,6 @@
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { loadCldr, GlobalizeProvider } from "react-native-globalize";
 import FlashMessage from "react-native-flash-message";
@@ -22,6 +22,8 @@ const App = () => {
   });
 
   if (fontsError) console.error(fontsError);
+
+  useEffect(() => {}, []);
 
   if (!fontsLoaded) {
     return <AppLoading />;

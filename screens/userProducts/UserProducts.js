@@ -12,9 +12,10 @@ import { DEFAULT_SPACING } from "../../const/style";
 import { fetchProducts } from "../../store/actions/shop";
 
 const UserProducts = ({ navigation }) => {
+  const userId = useSelector((state) => state.auth.user.id);
   const [loading, setLoading] = useState(true);
   const userProducts = useSelector((state) => state.shop.products).filter(
-    (p) => p.userId === "u1"
+    (p) => p.userId === userId
   );
 
   const dispatch = useDispatch();

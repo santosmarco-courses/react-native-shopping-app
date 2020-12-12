@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
+import moment from "moment";
 import { useGlobalize } from "react-native-globalize";
 import TouchableNative from "./TouchableNative";
 import Title from "./Title";
@@ -33,7 +34,7 @@ const OrderCard = ({ data }) => {
             iconColor="#016FB9"
             containerStyle={{ flex: 1.3 }}
           >
-            {data.placedAt.format("MM/DD/YY")}
+            {moment(data.placedAt).format("MM/DD/YY")}
           </OrderCardItem>
           <OrderCardItem iconName="pricetags" iconColor="#E83151">
             {data.items.reduce((acc, item) => acc + item.qty, 0)}

@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@bit/santosmarco.react-native.better-ionicons": "^0.0.1",
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^5.11.4",
     "@react-navigation/native": "^5.8.10",
@@ -15,6 +17,7 @@
     "expo": "~39.0.2",
     "expo-crypto": "~8.3.0",
     "expo-font": "~8.3.0",
+    "expo-linear-gradient": "~8.3.0",
     "expo-random": "~9.0.0",
     "expo-status-bar": "~1.0.2",
     "moment": "^2.29.1",
@@ -25,6 +28,7 @@
     "react-native-gesture-handler": "~1.7.0",
     "react-native-get-random-values": "^1.5.0",
     "react-native-globalize": "^4.4.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
@@ -33,7 +37,8 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

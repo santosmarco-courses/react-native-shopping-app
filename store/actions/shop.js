@@ -55,9 +55,11 @@ export const emptyCart = () => ({
   type: actionTypes.EMPTY_CART,
 });
 
-export const addProduct = (newProduct) => async (dispatch) => {
+export const addProduct = (newProduct) => async (dispatch, getState) => {
   await fetch(
-    "https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products.json",
+    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products.json?auth=${
+      getState().auth.idToken
+    }`,
     {
       method: "POST",
       headers: {
@@ -70,18 +72,25 @@ export const addProduct = (newProduct) => async (dispatch) => {
   dispatch(fetchProducts());
 };
 
-export const deleteProduct = (productId) => async (dispatch) => {
+export const deleteProduct = (productId) => async (dispatch, getState) => {
   await fetch(
-    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products/${productId}.json`,
+    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products/${productId}.json?auth=${
+      getState().auth.idToken
+    }`,
     { method: "DELETE" }
   );
 
   dispatch(fetchProducts());
 };
 
-export const updateProduct = (productId, newProduct) => async (dispatch) => {
+export const updateProduct = (productId, newProduct) => async (
+  dispatch,
+  getState
+) => {
   await fetch(
-    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products/${productId}.json`,
+    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products/${productId}.json?auth=${
+      getState().auth.idToken
+    }`,
     {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

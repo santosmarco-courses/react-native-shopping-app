@@ -1,10 +1,12 @@
 import * as actionTypes from "./actionTypes";
 
-export const fetchOrders = () => async (dispatch) => {
+export const fetchOrders = () => async (dispatch, getState) => {
   const res = await fetch(
-    "https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/orders.json"
+    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/orders/${
+      getState().auth.user.id
+    }.json`
   );
-  const data = res.json();
+  const data = await res.json();
 
   let allOrders = [];
 
@@ -21,9 +23,11 @@ export const fetchOrders = () => async (dispatch) => {
   });
 };
 
-export const addOrder = (orderItems) => async (dispatch) => {
+export const addOrder = (orderItems) => async (dispatch, getState) => {
   await fetch(
-    "https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/orders.json",
+    `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/orders/${
+      getState().auth.user.id
+    }.json?auth=${getState().auth.idToken}`,
     {
       method: "POST",
       headers: {

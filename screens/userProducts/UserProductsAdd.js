@@ -29,8 +29,9 @@ import { LIGHT } from "../../const/colors";
 import * as shopActions from "../../store/actions/shop";
 
 const UserProductsAdd = ({ navigation, route }) => {
+  const userId = useSelector((state) => state.auth.user.id);
   const [product, setProduct] = useState({
-    userId: "u1",
+    userId,
     title: "",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png",
