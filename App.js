@@ -1,5 +1,6 @@
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
+import { setNotificationHandler } from "expo-notifications";
 import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { loadCldr, GlobalizeProvider } from "react-native-globalize";
@@ -10,6 +11,10 @@ import store from "./store";
 
 // Example: loading German, English, and Spanish
 loadCldr(require("react-native-globalize/locale-data/en"));
+
+setNotificationHandler({
+  handleNotification: async () => ({ shouldShowAlert: true }),
+});
 
 const App = () => {
   const [fontsLoaded, fontsError] = useFonts({

@@ -18,6 +18,8 @@
     "expo-crypto": "~8.3.0",
     "expo-font": "~8.3.0",
     "expo-linear-gradient": "~8.3.0",
+    "expo-notifications": "~0.7.2",
+    "expo-permissions": "~9.3.0",
     "expo-random": "~9.0.0",
     "expo-status-bar": "~1.0.2",
     "moment": "^2.29.1",

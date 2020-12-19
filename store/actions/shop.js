@@ -1,4 +1,7 @@
 import * as actionTypes from "./actionTypes";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+import { lessThan } from "react-native-reanimated";
 
 export const startLoading = () => ({
   type: actionTypes.SET_LOADING,
@@ -56,6 +59,21 @@ export const emptyCart = () => ({
 });
 
 export const addProduct = (newProduct) => async (dispatch, getState) => {
+  let pushToken;
+  const permission = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  if (permission.status !== "granted") {
+    const updatedPermission = await Permissions.askAsync(
+      Permissions.NOTIFICATIONS
+    );
+    if (updatedPermission.status !== "granted") {
+      pushToken = null;
+    } else {
+      pushToken = await Notifications.getExpoPushTokenAsync();
+    }
+  } else {
+    pushToken = await Notifications.getExpoPushTokenAsync();
+  }
+
   await fetch(
     `https://rn-shopping-app-4356f-default-rtdb.firebaseio.com/products.json?auth=${
       getState().auth.idToken
@@ -65,7 +83,10 @@ export const addProduct = (newProduct) => async (dispatch, getState) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newProduct),
+      body: JSON.stringify({
+        ...newProduct,
+        ownerPushToken: pushToken?.data
+      }),
     }
   );
 
